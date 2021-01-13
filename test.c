@@ -76,15 +76,16 @@
 //#include <string.h>
 //#include <ncurses.h>      // $ apt-get install libncurses-dev   # add -l ncurses to linker command
 #include "ee101.h"        // EE101 Embedded Firmware Debugger, www.ee101.com # add ee101.c and ee101.h files to your project
-//#include <wiringPi.h>     // Rpi GPIO library, www.wiringpi.com # add -l wiringPi to linker command.
+/* #include <wiringPi.h>     // Rpi GPIO library, www.wiringpi.com # add -l wiringPi to linker command.
 #include "wiringSerial.h" // included when adding -l wiringPi to linker command
-/* #include <wiringPiI2C.h>  // included when adding -l wiringPi to linker command
+#include <wiringPiI2C.h>  // included when adding -l wiringPi to linker command
 #include <wiringPiSPI.h>  // included when adding -l wiringPi to linker command
 #include <wiringShift.h>  // included when adding -l wiringPi to linker command
 #include <softPwm.h>      // add -l pthread to linker command
 #include <softServo.h>    // add -l pthread to linker command
-#include <softTone.h>     // add -l pthread to linker command
- */
+#include <softTone.h>     // add -l pthread to linker command */
+#include "serial.h"
+
 int fd;
 int main(int argc, char *argv[]) {
   int i, x, ch;
@@ -94,7 +95,7 @@ int main(int argc, char *argv[]) {
   pinMode(1, OUTPUT); pinMode(4, OUTPUT); pinMode(26, OUTPUT); pinMode(27, OUTPUT); // LEDS
   pinMode(25, INPUT); pullUpDnControl(25, PUD_UP);                                  // wPi 25 as input, w/ ~50k-ohm pull-up enabled */
 
-  if((fd = serialOpen("/dev/serial0", 9600)) < 0) return 2;                   // open handle to /dev/serial0 using wiringSerial, used for EE101 1-wire mode, must disable Rpi's serial console, $ sudo raspi-config
+  if((fd = serialOpen("/dev/cu.usbserial-FTVHYZXQ", 9600)) < 0) return 2;                   // open handle to /dev/serial0 using wiringSerial, used for EE101 1-wire mode, must disable Rpi's serial console, $ sudo raspi-config
   //initscr(); cbreak(); noecho(); keypad(stdscr, TRUE); nodelay(stdscr, TRUE); // configure terminal using ncurses, mainly for its non-blocking getch(); implementation
   //printw("Press any key to exit program...\n");
 

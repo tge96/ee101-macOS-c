@@ -42,8 +42,9 @@ support@ee101.com.
 //extern cyhal_uart_t uart_obj; // ModusToolbox PSoC 6
 
 //#include <wiringPi.h>           // Raspberry Pi
-#include "wiringSerial.h"       // Raspberry Pi
-extern int fd;                  // Raspberry Pi
+//#include "wiringSerial.h"       // Raspberry Pi
+#include "serial.h"             // macOS
+extern int fd;                  // Raspberry Pi & macOS
 
 // CHANGE #2 - How to disable Interrupts. Only needed if you have debug 
 // output in interrupts.  Make sure if you do disable interrupts that it
