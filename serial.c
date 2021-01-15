@@ -17,14 +17,12 @@
  *	Open and initialise the serial port
  */
 
-int serialOpen(const char *device, const int baud)
-{
+int serialOpen(const char *device, const int baud) {
   struct termios options;
   speed_t myBaud;
   int status, fd;
 
-  switch(baud)
-  {
+  switch(baud) {
     case      50:	myBaud =      B50 ; break ;
     case      75:	myBaud =      B75 ; break ;
     case     110:	myBaud =     B110 ; break ;
@@ -103,8 +101,7 @@ int serialOpen(const char *device, const int baud)
  *	Flush the serial buffers (both tx & rx)
  */
 
-void serialFlush(const int fd)
-{
+void serialFlush(const int fd) {
   tcflush(fd, TCIOFLUSH);
 }
 
@@ -114,8 +111,7 @@ void serialFlush(const int fd)
  *	Release the serial port
  */
 
-void serialClose(const int fd)
-{
+void serialClose(const int fd) {
   close(fd);
 }
 
@@ -125,8 +121,7 @@ void serialClose(const int fd)
  *	Send a single character to the serial port
  */
 
-void serialPutchar(const int fd, const unsigned char c)
-{
+void serialPutchar(const int fd, const unsigned char c) {
   write(fd, &c, 1);
 }
 
@@ -136,8 +131,7 @@ void serialPutchar(const int fd, const unsigned char c)
  *	Send a string to the serial port
  */
 
-void serialPuts(const int fd, const char *s)
-{
+void serialPuts(const int fd, const char *s) {
   write(fd, s, strlen (s));
 }
 
@@ -146,8 +140,7 @@ void serialPuts(const int fd, const char *s)
  *	Printf over Serial
  */
 
-void serialPrintf(const int fd, const char *message, ...)
-{
+void serialPrintf(const int fd, const char *message, ...) {
   va_list argp;
   char buffer [1024];
 
@@ -164,8 +157,7 @@ void serialPrintf(const int fd, const char *message, ...)
  *	Return the number of bytes of data avalable to be read in the serial port
  */
 
-int serialDataAvail(const int fd)
-{
+int serialDataAvail(const int fd) {
   int result;
 
   if(ioctl(fd, FIONREAD, &result) == -1)
@@ -182,8 +174,7 @@ int serialDataAvail(const int fd)
  *	10 seconds.
  */
 
-int serialGetchar(const int fd)
-{
+int serialGetchar(const int fd) {
   uint8_t x;
 
   if (read(fd, &x, 1) != 1)
